@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+</head>
+<body>
+    <p>Use console to play rock/paper/scissors.</p>
+    <script>
+    // Function to make selection for computer play.
+    function computerPlay() {
+        choices = ["Rock", "Paper", "Scissors"];
+        return choices[Math.floor(Math.random() * choices.length)];
+    }
+    // Function to determine winner of a round.
+    function playRound(playerSelection, computerSelection) {
+        const WIN = "Win";
+        const LOSE = "Lose";
+        const TIE = "Tie";
+        playerSelection = capitalize(playerSelection.toLowerCase());
+        switch (playerSelection) {
+            case "Rock":
+                if (computerSelection == "Rock") {
+                    return TIE;
+                } else if (computerSelection == "Paper") {
+                    return LOSE;
+                } else {
+                    return WIN;
+                }
+                break;
+            case "Paper":
+                if (computerSelection == "Rock") {
+                    return WIN;
+                } else if (computerSelection == "Paper") {
+                    return TIE;
+                } else {
+                    return LOSE;
+                }
+                break;
+            case "Scissors":
+                if (computerSelection == "Rock") {
+                    return LOSE;
+                } else if (computerSelection =="Paper") {
+                    return WIN;
+                } else {
+                    return TIE;
+                }
+                break;
+            default:
+                // Invalid choice auto-loses.
+                return LOSE;
+        }
+    }
+    // Capitalize first letter of a string.
+    function capitalize(str) {
+        var firstLetter = str.charAt(0);
+        var lowercase = str.slice(1);
+        return firstLetter.toUpperCase() + lowercase.toLowerCase();
+    }
+    // Plays a five round game of RPS.
+    function game () {
+        var computerScore = 0;
+        var playerScore = 0;
+        for(let i = 0; i < 5; i++){
+            var playerSelection = capitalize(prompt("Rock, paper, or scissors?"));
+            var computerSelection = computerPlay();
+            var result = playRound(playerSelection, computerSelection);
+            console.log(writeGameResult(result, playerSelection, computerSelection));
+            if (result == "Win") {
+                ++playerScore;
+            } else if (result == "Lose") {
+                ++computerScore;
+            }
+        }
+        writeMatchResult(playerScore, computerScore);
+    }
+    // Writes game result message.
+    function writeGameResult(result, playerSelection, computerSelection) {
+        const WIN = "You win! ";
+        const LOSE = "You lose! ";
+        const TIE = "You tie! ";
+        const TIES = " ties ";
+        const BEATS = " beats ";
+        switch (result) {
+            case "Win":
+                console.log(WIN + playerSelection + BEATS + computerSelection);
+                break;
+            case "Lose":
+                console.log(LOSE + computerSelection + BEATS + playerSelection);
+                break;
+            default:
+                console.log(TIE + playerSelection + TIES + computerSelection);
+                break;
+            return;
+        }
+    }
+    // Writes match result message.
+    function writeMatchResult(playerScore, computerScore) {
+        if (playerScore > computerScore) {
+            console.log("You win the match, " + playerScore + " to " + computerScore);
+        } else if (computerScore > playerScore) {
+            console.log("The computer wins the match, " + computerScore + " to " + playerScore);
+        } else {
+            console.log("The match was a draw, with " + playerScore +" wins each")
+        }
+        return;
+    }
+    // Call game function.
+    game()
+  </script>
+</body>
+</html>
