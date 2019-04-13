@@ -1,0 +1,1 @@
+This project is a Javascript implementation of rock/paper/scissors made as part of The Odin Project's Web Development course. The game is played in the browser's JS console.
